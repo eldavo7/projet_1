@@ -1,34 +1,39 @@
 import { useState } from 'react';
 
-export default function Form() {
-  const [to, setTo] = useState('Alice');
-  const [message, setMessage] = useState('Hello');
+export default function Counter() {
+  const [score, setScore] = useState(0);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    setTimeout(() => {
-      alert(`You said ${message} to ${to}`);
-    }, 3000);
+  function increment() {
+    setScore(s => s + 1);
+  }
+
+  function reset() {
+    setScore(0); // Réinitialise le score à 0
   }
 
   return (
-    <form  className="container d-flex justify-content-center align-items-center min-vh-100"
-    onSubmit={handleSubmit}>
-      <label className='container'>
-        To:{' '}
-        <select className='container'
-          value={to}
-          onChange={e => setTo(e.target.value)}>
-          <option value="Alice">Alice</option>
-          <option value="Bob">Bob</option>
-        </select>
-      </label>
-      <textarea className='container' style={{ margin: '10px' }}
-        placeholder="Message"
-        value={message}
-        onChange={e => setMessage(e.target.value)}
-      />
-      <button type="submit">Send</button>
-    </form>
+    <div className="d-flex flex-column justify-content-center align-items-center vh-100 bg-light">
+      <div className="text-center p-4 bg-white rounded shadow">
+        <h1 className="mb-4">Score: {score}</h1>
+        <div className="d-flex gap-2">
+          <button className="btn btn-primary" onClick={() => increment()}>
+            +1
+          </button>
+          <button
+            className="btn btn-success"
+            onClick={() => {
+              increment();
+              increment();
+              increment();
+            }}
+          >
+            +3
+          </button>
+          <button className="btn btn-danger" onClick={() => reset()}>
+            Reset
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
