@@ -1,39 +1,85 @@
 import { useState } from 'react';
 
-export default function Counter() {
-  const [score, setScore] = useState(0);
+export default function Form() {
+  const [person, setPerson] = useState({
+    name: 'Pickatchu',
+    artwork: {
+      title: 'Pika pika',
+      city: 'Clermont-Ferrand',
+      image: 'https://static.pkmcards.fr/characters/image-cartes-a-collectionner-pokemon-card-game-tcg-pkmcards-pikachu.webp',
+    }
+  });
 
-  function increment() {
-    setScore(s => s + 1);
+  function handleNameChange(e) {
+    setPerson({
+      ...person,
+      name: e.target.value
+    });
   }
 
-  function reset() {
-    setScore(0); // Réinitialise le score à 0
+  function handleTitleChange(e) {
+    setPerson({
+      ...person,
+      artwork: {
+        ...person.artwork,
+        title: e.target.value
+      }
+    });
   }
+
+  function handleCityChange(e) {
+    setPerson({
+      ...person,
+      artwork: {
+        ...person.artwork,
+        city: e.target.value
+      }
+    });
+  }
+
+  function handleImageChange(e) {
+    setPerson({
+      ...person,
+      artwork: {
+        ...person.artwork,
+        image: e.target.value
+      }
+    });
+  }
+
+
 
   return (
-    <div className="d-flex flex-column justify-content-center align-items-center vh-100 bg-light">
-      <div className="text-center p-4 bg-white rounded shadow">
-        <h1 className="mb-4">Score: {score}</h1>
-        <div className="d-flex gap-2">
-          <button className="btn btn-primary" onClick={() => increment()}>
-            +1
-          </button>
-          <button
-            className="btn btn-success"
-            onClick={() => {
-              increment();
-              increment();
-              increment();
-            }}
-          >
-            +3
-          </button>
-          <button className="btn btn-danger" onClick={() => reset()}>
-            Reset
-          </button>
+    <div className="container mt-4">
+      <div className="card p-4 shadow">
+        <h2 className="mb-3">Artwork Form</h2>
+        <div className="mb-3">
+          <label className="form-label">Name:</label>
+          <input className="form-control" value={person.name} onChange={handleNameChange} />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Title:</label>
+          <input className="form-control" value={person.artwork.title} onChange={handleTitleChange} />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">City:</label>
+          <input className="form-control" value={person.artwork.city} onChange={handleCityChange} />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Image URL:</label>
+          <input className="form-control" value={person.artwork.image} onChange={handleImageChange} />
+        </div>
+        <div className="text-center">
+          <p className="fw-bold">
+            <i>{person.artwork.title}</i> by {person.name}
+            <br />(located in {person.artwork.city})
+          </p>
+          <img src={person.artwork.image} alt={person.artwork.title} className="img-fluid rounded shadow" />
         </div>
       </div>
     </div>
   );
+
+
 }
+
